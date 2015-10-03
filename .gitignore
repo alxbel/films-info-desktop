@@ -41,3 +41,11 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# App
+*.class
+*.jar
+*.gif
+*.iml
+.idea/*
+target/*

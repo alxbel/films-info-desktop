@@ -1,0 +1,284 @@
+root {
+    display: block;
+}
+
+/*#pane {
+    -fx-background-image: url("background.jpg");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}*/
+
+/*.button {
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+
+    -fx-font-size: 14px;
+}
+.button:hover {
+    -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+ }*/
+
+#standby {
+    -fx-font-family: "Century Gothic";
+    -fx-font-weight: bold;
+    -fx-font-size: 30px;
+}
+
+#dark-blue {
+    -fx-background-color:
+        #090a0c,
+        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+        linear-gradient(#20262b, #191d22),
+        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+    -fx-background-radius: 5,4,3,5;
+    -fx-background-insets: 0,1,2,0;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-font-family: "Arial";
+    -fx-text-fill: linear-gradient(white, #d0d0d0);
+    -fx-font-size: 12px;
+    -fx-padding: 10 20 10 20;
+}
+#dark-blue Text {
+    -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.9) , 1, 0.0 , 0 , 1 );
+}
+
+#label {
+    -fx-text-fill: white;
+    -fx-font-family: "Calibri";
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 8,7,6;
+    -fx-border-insets: 0,1,2;
+    -fx-border-color: white;
+    -fx-border-width: 2;
+    -fx-padding: 5;
+    /*-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );*/
+}
+
+#bevel-grey {
+    -fx-background-color:
+        linear-gradient(#f2f2f2, #d6d6d6),
+        linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),
+        linear-gradient(#dddddd 0%, #f6f6f6 50%);
+    -fx-background-radius: 8,7,6;
+    -fx-background-insets: 0,1,2;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+
+    -fx-font-size: 14px;
+}
+#glass-grey {
+    -fx-background-color:
+        #c3c4c4,
+        linear-gradient(#d6d6d6 50%, white 100%),
+        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0,1,1;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-font-family: "Calibri";
+    -fx-font-size: 16px;
+}
+
+/** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+#regular_1 {
+    -fx-background-image: url("../img/back_regular/back_regular_1.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#regular_2 {
+    -fx-background-image: url("../img/back_regular/back_regular_2.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#regular_3 {
+    -fx-background-image: url("../img/back_regular/back_regular_3.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#regular_4 {
+    -fx-background-image: url("../img/back_regular/back_regular_4.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#regular_5 {
+    -fx-background-image: url("../img/back_regular/back_regular_5.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#regular_6 {
+    -fx-background-image: url("../img/back_regular/back_regular_6.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#regular_7 {
+    -fx-background-image: url("../img/back_regular/back_regular_7.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#regular_8 {
+    -fx-background-image: url("../img/back_regular/back_regular_8.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#regular_9 {
+    -fx-background-image: url("../img/back_regular/back_regular_9.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#regular_10 {
+    -fx-background-image: url("../img/back_regular/back_regular_10.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#regular_11 {
+    -fx-background-image: url("../img/back_regular/back_regular_11.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#regular_12 {
+    -fx-background-image: url("../img/back_regular/back_regular_12.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#regular_13 {
+    -fx-background-image: url("../img/back_regular/back_regular_13.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#regular_14 {
+    -fx-background-image: url("../img/back_regular/back_regular_14.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+/** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+#load_1 {
+    -fx-background-image: url("../img/back_load/back_load_1.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#load_2 {
+    -fx-background-image: url("../img/back_load/back_load_2.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#load_3 {
+    -fx-background-image: url("../img/back_load/back_load_3.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#load_4 {
+    -fx-background-image: url("../img/back_load/back_load_4.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#load_5 {
+    -fx-background-image: url("../img/back_load/back_load_5.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#load_6 {
+    -fx-background-image: url("../img/back_load/back_load_6.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#load_7 {
+    -fx-background-image: url("../img/back_load/back_load_7.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#load_8 {
+    -fx-background-image: url("../img/back_load/back_load_8.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#load_9 {
+    -fx-background-image: url("../img/back_load/back_load_9.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#load_10 {
+    -fx-background-image: url("../img/back_load/back_load_10.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#load_11 {
+    -fx-background-image: url("../img/back_load/back_load_11.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#load_12 {
+    -fx-background-image: url("../img/back_load/back_load_12.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#load_13 {
+    -fx-background-image: url("../img/back_load/back_load_13.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#load_14 {
+    -fx-background-image: url("../img/back_load/back_load_14.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#load_15 {
+    -fx-background-image: url("../img/back_load/back_load_15.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#load_16 {
+    -fx-background-image: url("../img/back_load/back_load_16.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#load_17 {
+    -fx-background-image: url("../img/back_load/back_load_17.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+#load_18 {
+    -fx-background-image: url("../img/back_load/back_load_18.gif");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
