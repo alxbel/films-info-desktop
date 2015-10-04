@@ -30,6 +30,7 @@ public class Movie implements Comparable<Movie> {
     private String genre;
     private String country;
     private String director;
+    private String description;
     private String imdbLink = null;
     private String imdbLinkShort;
     private String imgLink;
@@ -75,6 +76,10 @@ public class Movie implements Comparable<Movie> {
         return premiere;
     }
 
+    public String getTip() {
+        return director;
+    }
+
     public void setTitleWordsList(LinkedList<String> titleWordsList) {
         this.titleWordsList = titleWordsList;
     }
@@ -97,7 +102,7 @@ public class Movie implements Comparable<Movie> {
         }
     }
 
-    public void parseAndSetFieldsFromJson() {
+    public boolean parseAndSetFieldsFromJson() {
         if (titleEng != null) {
             for (String titleWord : titleWordsList) {
                 Set<String> queries = new TreeSet<String>();
@@ -112,12 +117,14 @@ public class Movie implements Comparable<Movie> {
                     String jsonContent = getJsonFileFromUrl(Constants.IMDB.API, query);
                     if (jsonContent != null) {
                         if (parseJson(jsonContent)) {
-                            return;
+                            return true;
                         }
                     }
                 }
             }
+            return false;
         }
+        return false;
     }
 
     private static String getJsonFileFromUrl(String urlString, String query)  {
@@ -209,12 +216,17 @@ public class Movie implements Comparable<Movie> {
                             Constants.DOM.Attributes.ITEMPROP_KEY,
                             Constants.DOM.Attributes.ITEMPROP_VALUE_RATING)
                             .get(0);
+                    Element descrEl = body.getElementsByAttributeValue(
+                            Constants.DOM.Attributes.ITEMPROP_KEY,
+                            Constants.DOM.Attributes.ITEMPROP_VALUE_DESCRIPTION)
+                            .get(0);
                     Double rating = Double.parseDouble(ratingEl.text());
                     if (rating != null) {
                         setRating(rating);
                     } else {
                         setRating(0.0);
                     }
+                    setDescription(Utils.divideIntoParagraphs(descrEl.text()));
                 } catch (IndexOutOfBoundsException | NumberFormatException e) {}
             }
         }
@@ -273,6 +285,14 @@ public class Movie implements Comparable<Movie> {
 
     public void setDirector(String director) {
         this.director = director;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getTitleAbbr() {

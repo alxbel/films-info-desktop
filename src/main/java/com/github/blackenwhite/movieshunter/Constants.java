@@ -40,13 +40,23 @@ public class Constants {
         public static final String CSS_BACK = "css/back.css";
         public static final int LOAD_STYLES = 18;
         public static final int REGULAR_STYLES = 14;
+        public static final String STATUS_CANCELLED = "CANCELLED";
+        public static final String STATUS_CONNECTION_ISSUE = "CONNECTION ISSUES";
+        public static final String STATUS_INTERRUPTED_INVALID_INPUT = "INVALID INPUT";
+        public static final String STATUS_READY = "READY";
 
 
         private static final Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 
+        static {
+            if (dimension.getWidth() > 1300) {
+                dimension.setSize(1280, dimension.getHeight());
+            }
+        }
+
         public static final int IMAGE_HEIGHT = 100;
-        public static final long STAGE_WIDTH  = Math.round(dimension.getWidth() * 0.5);
-        public static final long STAGE_HEIGHT = Math.round(STAGE_WIDTH * 1.1);
+        public static final long STAGE_WIDTH  = Math.round(dimension.getWidth() * 0.6);
+        public static final long STAGE_HEIGHT = Math.round(STAGE_WIDTH * 1.15);
         public static final long TABLE_WIDTH  = Math.round(STAGE_WIDTH * 0.75);
         public static final long TABLE_HEIGHT  = Math.round(STAGE_HEIGHT * 0.6);
         public static final long VGAP = Math.round(STAGE_HEIGHT * 0.05);
@@ -55,6 +65,7 @@ public class Constants {
         public class Images {
             public static final String LOAD_IMG = "load_icon.gif";
             public static final String APP_ICON = "img/app_icon.png";
+            public static final String EXE_ICON = "img/app_icon.ico";
         }
     }
 
@@ -77,9 +88,9 @@ public class Constants {
         public static final int MONTHS_IN_YEAR = 12;
         public static final String[] MONTHS = new DateFormatSymbols(Locale.ENGLISH).getMonths();
         public static final String DEFAULT_START_YEAR = ""+(1995 + new Random().nextInt(2015 - 1995));
-        public static final String DEFAULT_START_MONTH = "August";
+        public static final String DEFAULT_START_MONTH = MONTHS[new Random().nextInt(12)];
         public static final String DEFAULT_END_YEAR = DEFAULT_START_YEAR;
-        public static final String DEFAULT_END_MONTH = "September";
+        public static final String DEFAULT_END_MONTH = DEFAULT_START_MONTH;
     }
 
     public static class Movies {
@@ -115,6 +126,7 @@ public class Constants {
             public static final String ITEMPROP_KEY             = "itemprop";
             public static final String ITEMPROP_VALUE_DIRECTOR  = "director";
             public static final String ITEMPROP_VALUE_RATING    = "ratingValue";
+            public static final String ITEMPROP_VALUE_DESCRIPTION = "description";
         }
     }
 

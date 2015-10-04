@@ -17,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
+import javafx.util.Callback;
 
 import java.awt.*;
 import java.net.URI;
@@ -35,6 +36,7 @@ import static com.github.blackenwhite.movieshunter.Constants.UI.*;
  * @since 30.01.2015
  */
 public class MainWindow extends Application {
+    private Stage stage;
     private Scene scene;
     private static GridPane mainPane;
     private GridPane topPane;
@@ -60,7 +62,9 @@ public class MainWindow extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        this.stage = stage;
         initUi(stage);
+//        Utils.setupCustomTooltipBehavior(2000, 20000, 1);
     }
 
     public void initUi(Stage stage) {
@@ -93,13 +97,14 @@ public class MainWindow extends Application {
     }
 
 
-    public void setTableData(LinkedList<Movie> allMovies) {
+    public void setTableData(LinkedList<Movie> moviesList) {
         setRandomRegularBack();
-        if (allMovies == null) {
-            setTableLabel("Nothing found");
+        processBtn.setDisable(false);
+        if (moviesList == null) {
+            setTableLabel(MoviesCollector.getStatus());
             cancelBtn.setDisable(true);
         } else {
-            ObservableList<Movie> data = FXCollections.observableArrayList(allMovies);
+            ObservableList<Movie> data = FXCollections.observableArrayList(moviesList);
             table.setItems(data);
             cancelBtn.setDisable(true);
         }
@@ -207,20 +212,6 @@ public class MainWindow extends Application {
         startMonthBox.setId("bevel-grey");
         endMonthBox.setId("bevel-grey");
 
-        cancelBtn = new Button("Cancel");
-        cancelBtn.setId("glass-grey");
-        cancelBtn.setDisable(true);
-        cancelBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                App.cancelSearchThread();
-                setRandomRegularBack();
-                setTableLabel("Cancelled");
-                processBtn.setDisable(false);
-                cancelBtn.setDisable(true);
-            }
-        });
-
         processBtn = new Button("Process");
         processBtn.setId("glass-grey");
         processBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -233,10 +224,23 @@ public class MainWindow extends Application {
                     processBtn.setDisable(true);
                     App.startSearchThread();
                 } else {
-                    setTableLabel("INVALID INPUT");
+                    setTableLabel(Constants.UI.STATUS_INTERRUPTED_INVALID_INPUT);
                     cancelBtn.setDisable(true);
                     processBtn.setDisable(false);
                 }
+            }
+        });
+
+        cancelBtn = new Button("Cancel");
+        cancelBtn.setId("glass-grey");
+        cancelBtn.setDisable(true);
+        cancelBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                MoviesCollector.setStatus(Constants.UI.STATUS_CANCELLED);
+                setTableLabel(Constants.UI.STATUS_CANCELLED);
+                cancelBtn.setDisable(true);
+                App.cancelSearchThread();
             }
         });
 
@@ -304,6 +308,47 @@ public class MainWindow extends Application {
                     System.out.println(movie.getImdbLink());
                     openWebpage(movie.getImdbURL());
                 }
+//              else if (event.getClickCount() == 1) {
+//                    table.setRowFactory(new Callback<TableView, TableRow>() {
+//                        @Override
+//                        public TableRow call(final TableView tv) {
+//                            return new TableRow<Movie>() {
+//                                @Override
+//                                public void updateItem(Movie movie, boolean empty) {
+//                                    super.updateItem(movie, empty);
+//                                    if (movie == null) {
+//                                        setTooltip(null);
+//                                    } else {
+//                                        Tooltip tooltip = new Tooltip();
+//                                        tooltip.setText(movie.getDirector());
+//                                        setTooltip(tooltip);
+//                                    }
+//                                }
+//                            };
+//                        }
+//                    });
+//                }
+            }
+        });
+
+        table.setRowFactory(new Callback<TableView, TableRow>() {
+            @Override
+            public TableRow call(final TableView tv) {
+                return new TableRow<Movie>() {
+                    @Override
+                    public void updateItem(Movie movie, boolean empty) {
+                        super.updateItem(movie, empty);
+                        if (movie == null) {
+                            setTooltip(null);
+                        } else {
+                            setTooltip(null);
+                            Tooltip tooltip = new Tooltip();
+                            Utils.hackTooltipTiming(tooltip);
+                            tooltip.setText(movie.getDescription());
+                            setTooltip(tooltip);
+                        }
+                    }
+                };
             }
         });
         table.setMinWidth(Constants.UI.TABLE_WIDTH);

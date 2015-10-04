@@ -22,12 +22,15 @@ import java.util.*;
 public class MoviesCollector {
     LinkedList<Movie> movies;
     private MainWindow ui;
-    private boolean cancelled = false;
+    private static boolean cancelled;
+    private static String status;
     private static Double progress;
 
     public MoviesCollector(MainWindow ui) {
         this.ui = ui;
         movies = new LinkedList<Movie>();
+        cancelled = false;
+        status = Constants.UI.STATUS_READY;
     }
 
     @Override
@@ -57,21 +60,29 @@ public class MoviesCollector {
         cancelled = true;
     }
 
-    public boolean isCancelled() {
+    public static boolean isCancelled() {
         return cancelled;
+    }
+
+    public static String getStatus() {
+        return status;
+    }
+
+    public static void setStatus(String status) {
+        MoviesCollector.status = status;
     }
 
     public void findMovies() {
         Utils.logInfo(getClass() + ".findMovies()");
-        ArrayList<Element> moviesNotParsed = getMoviesAsHtml();
-        if (moviesNotParsed == null) {
+        ArrayList<Element> moviesRawData = getMoviesRawData();
+        if (moviesRawData == null) {
             return;
         }
 
 
-        final Double percent = 100.0 / moviesNotParsed.size();
+        final Double percent = 100.0 / moviesRawData.size();
         progress = 0.0;
-        for (Element el : moviesNotParsed) {
+        for (Element el : moviesRawData) {
 
             // Update progress
             {
@@ -85,7 +96,9 @@ public class MoviesCollector {
                             Platform.runLater(new Runnable() {
                                 @Override
                                 public void run() {
-                                    MainWindow.refreshProgress(value);
+                                    if (!status.equals(Constants.UI.STATUS_CANCELLED)) {
+                                        MainWindow.refreshProgress(value);
+                                    }
                                 }
                             });
                             return null;
@@ -102,7 +115,10 @@ public class MoviesCollector {
             }
 
             // Shutdown thread if cancel pushed
-            if (cancelled) break;
+            if (cancelled) {
+                status = Constants.UI.STATUS_CANCELLED;
+                break;
+            }
 
             Movie movie = new Movie();
             String release = Arrays.asList(el.getElementsByClass(Constants.DOM.Classes.PREMIER_DATE).text()).get(0).trim();
@@ -119,7 +135,9 @@ public class MoviesCollector {
                 movie.setTitleEng(null);
             }
             movie.setTitleWordsList();
-            movie.parseAndSetFieldsFromJson();
+            if (!movie.parseAndSetFieldsFromJson()) {
+                continue;
+            }
             Elements countryNotParsed = el.getElementsByClass(Constants.DOM.Classes.TEXT);
 
             try {
@@ -142,9 +160,9 @@ public class MoviesCollector {
     }
 
 
-    private static ArrayList<Element> getMoviesAsHtml() {
-        Utils.logInfo(MoviesCollector.class + ".getMoviesAsHtml()");
-        final ArrayList<Element> moviesNotParsed = new ArrayList<>();
+    private static ArrayList<Element> getMoviesRawData() {
+        Utils.logInfo(MoviesCollector.class + ".getMoviesRawData()");
+        final ArrayList<Element> moviesRawData = new ArrayList<>();
         /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
         Element body = getHTMLContent(Constants.URL.CURRENT_MOVIES);
         if (body == null) {
@@ -153,9 +171,9 @@ public class MoviesCollector {
         /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
         Elements titles = body.getElementsByClass(Constants.DOM.Classes.TITLE_FILM);
         for (Element t : titles) {
-            moviesNotParsed.addAll(t.parent().parent().getElementsByTag(Constants.DOM.Tags.TR));
+            moviesRawData.addAll(t.parent().parent().getElementsByTag(Constants.DOM.Tags.TR));
         }
-        return moviesNotParsed;
+        return moviesRawData;
     }
 
     private static Element getHTMLContent(String url) {
@@ -172,6 +190,7 @@ public class MoviesCollector {
             endMonth = year == endYear ? input.getEndMonthIndex() : Constants.Misc.MONTHS_IN_YEAR - 1;
 
             for (int monthIndex = startMonth; monthIndex <= endMonth; monthIndex++) {
+                if (cancelled) return null;
                 System.out.println(String.format("%s %d", Constants.Misc.MONTHS[monthIndex], year));
                 try {
                     Document html = Jsoup.connect(url)
@@ -182,6 +201,8 @@ public class MoviesCollector {
                     content.append(doc.body().toString());
                 } catch (IOException e) {
                     Utils.logErr(MoviesCollector.class + ".getHTMLContent(" + url + "): " + e);
+                    status = Constants.UI.STATUS_CONNECTION_ISSUE;
+                    cancelled = true;
                 }
             }
         }
